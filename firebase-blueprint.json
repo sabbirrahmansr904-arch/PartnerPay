@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Represents an income or expense entry.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "category": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "note": { "type": "string" },
+        "receiptUrl": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "amount", "type", "category", "date", "createdBy"]
+    },
+    "Investment": {
+      "title": "Investment",
+      "description": "Represents a partner's investment.",
+      "type": "object",
+      "properties": {
+        "partnerId": { "type": "string" },
+        "partnerName": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "note": { "type": "string" }
+      },
+      "required": ["partnerId", "partnerName", "amount", "date"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Global application settings.",
+      "type": "object",
+      "properties": {
+        "currency": { "type": "string" },
+        "partnerAName": { "type": "string" },
+        "partnerBName": { "type": "string" },
+        "partnerCName": { "type": "string" },
+        "categories": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "partner"] }
+      }
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Represents a customer order.",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string" },
+        "customerNumber": { "type": "string" },
+        "customerAddress": { "type": "string" },
+        "productCode": { "type": "string" },
+        "price": { "type": "number" },
+        "buyingPrice": { "type": "number" },
+        "totalBill": { "type": "number" },
+        "date": { "type": "string", "format": "date" },
+        "transactionId": { "type": "string" },
+        "expenseTransactionId": { "type": "string" }
+      },
+      "required": ["customerName", "customerNumber", "customerAddress", "productCode", "price", "buyingPrice", "totalBill", "date"]
+    },
+    "ProfitShare": {
+      "title": "ProfitShare",
+      "description": "Represents the profit share for each partner from an order.",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "productCode": { "type": "string" },
+        "totalProfit": { "type": "number" },
+        "sharePerPartner": { "type": "number" },
+        "partnerA": { "type": "string" },
+        "partnerB": { "type": "string" },
+        "partnerC": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["orderId", "customerName", "productCode", "totalProfit", "sharePerPartner", "partnerA", "partnerB", "partnerC", "date"]
+    }
+  },
+  "firestore": {
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Collection of all income and expense transactions."
+    },
+    "/investments/{investmentId}": {
+      "schema": "Investment",
+      "description": "Collection of partner investments."
+    },
+    "/settings/global": {
+      "schema": "AppSettings",
+      "description": "Global application settings."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile information."
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of customer orders."
+    },
+    "/profit_shares/{shareId}": {
+      "schema": "ProfitShare",
+      "description": "Collection of profit shares for partners."
+    }
+  }
+}

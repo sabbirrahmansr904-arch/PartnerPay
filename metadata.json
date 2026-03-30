@@ -1,0 +1,5 @@
+{
+  "name": "PartnerPay",
+  "description": "A business ledger for partners to track income, expenses, investments, and profit sharing with cloud sync.",
+  "requestFramePermissions": []
+}
